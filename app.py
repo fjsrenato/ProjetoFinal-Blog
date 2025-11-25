@@ -50,27 +50,14 @@ def admin():
 # ------------------------
 @app.route('/criar', methods=['POST'])
 def criar():
-    titulo = request.form['titulo']
-    conteudo = request.form['conteudo']
-
-    conn = sqlite3.connect("blog.db")
-    cursor = conn.cursor()
-    cursor.execute("INSERT INTO posts (titulo, conteudo) VALUES (?, ?)", (titulo, conteudo))
-    conn.commit()
-    conn.close()
-    return redirect(url_for('admin'))
+    
 
 # ------------------------
 # Deletar Post
 # ------------------------
 @app.route('/deletar/<int:post_id>', methods=['POST'])
 def deletar(post_id):
-    conn = sqlite3.connect('blog.db')
-    cursor = conn.cursor()
-    cursor.execute("DELETE FROM posts WHERE id = ?", (post_id,))
-    conn.commit()
-    conn.close()
-    return redirect(url_for('admin'))
+   
 
 # ------------------------
 # Página de Edição
