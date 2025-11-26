@@ -50,13 +50,36 @@ def admin():
 # ------------------------
 @app.route('/criar', methods=['POST'])
 def criar():
+    # aqui a gente captura os valores
+    titulo = request.form['titulo']
+    conteudo =  request.form['conteudo']
+# aqui a gente insere no banco 
+    conn = sqlite3.connect("blog.db")
+    cursor = conn.cursor()
+    cursor.execute('INSERT INTO posts (titulo , conteudo) values(?,?)',(titulo,conteudo))
+
+    conn.commit()
+    conn.close()
+
     
+
+    return render_template('index.html')
 
 # ------------------------
 # Deletar Post
 # ------------------------
 @app.route('/deletar/<int:post_id>', methods=['POST'])
 def deletar(post_id):
+    # se conctar com o banco e usar o comando delete 
+    conn = sqlite3.connect("blog.db")
+    cursor = conn.cursor()
+    cursor.execute('delete from posts where id = ?',(post_id,))
+
+    conn.commit()
+    conn.close()
+
+
+    return render_template('index.html')
    
 
 # ------------------------
